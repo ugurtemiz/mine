@@ -24,6 +24,8 @@
   },
   "homepage": "https://github.com/ugurtemiz/mine#readme",
   "devDependencies": {
-    "electron-prebuilt": "^0.37.3"
+    "electron-prebuilt": "^0.37.3",
+    "gulp": "^3.9.1",
+    "gulp-util": "^3.0.7"
   }
 }

@@ -1,0 +1,28 @@
+{
+  "name": "mine",
+  "description": "Data Mining Aplication",
+  "main": "main.js",
+  "authors": [
+    "Ugur Temiz"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "data",
+    "mining",
+    "electron",
+    "angular",
+    "material"
+  ],
+  "homepage": "https://github.com/ugurtemiz/mine",
+  "moduleType": [
+    "globals"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
