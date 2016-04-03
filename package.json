@@ -1,0 +1,29 @@
+{
+  "name": "mine",
+  "version": "1.0.0",
+  "description": "Data Mining Aplication",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ugurtemiz/mine.git"
+  },
+  "keywords": [
+    "data",
+    "mining",
+    "electron",
+    "angular",
+    "material"
+  ],
+  "author": "Ugur Temiz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ugurtemiz/mine/issues"
+  },
+  "homepage": "https://github.com/ugurtemiz/mine#readme",
+  "devDependencies": {
+    "electron-prebuilt": "^0.37.3"
+  }
+}
