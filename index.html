@@ -9,19 +9,8 @@
     <script> document.write(process.versions['electron']) </script> on 
    <script> document.write(process.platform) </script>
    <script type="text/javascript"> 
-      var fs = require('fs');
-      
-        const exec = require('child_process').exec;
-        const child = exec('./app/src/algorithms/fpgrowth/src/fpgrowth ./app/src/algorithms/fpgrowth/ex/test1.tab test1.out',
-        (error, stdout, stderr) => {
-            console.log(`stdout: ${stdout}`);
-            console.log(`stderr: ${stderr}`);
-            var file = fs.readFileSync('test1.out'); 
-            document.write(file);
-            if (error !== null) {
-                console.log(`exec error: ${error}`);
-            }
-        });
+        var getResult = require('./app/src/js/runAlgorithm')
+        document.write(getResult());
    </script>
   </body>
 </html>
