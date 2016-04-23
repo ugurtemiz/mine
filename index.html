@@ -1,16 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="mine">
   <head>
-    <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+    <title>Leave</title>
+
+    <!-- CSS: start -->
+    <link rel="stylesheet" href="./bower_components/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="./bower_components/angular-material/angular-material.css">
+    <!-- CSS: end -->
+
+    <!-- style -->
+    <link rel="stylesheet" href="./app/assets/css/style.css" />
+    <!--<link rel="stylesheet" href="./assets/css/style.min.css" />-->
   </head>
-  <body>
-    <h1>Hello World!</h1>
-    <script> document.write(process.versions['electron']) </script> on 
-   <script> document.write(process.platform) </script>
-   <script type="text/javascript"> 
+  <body layout="column" ng-cloak>
+   <!--<script type="text/javascript"> 
         var getResult = require('./app/src/js/runAlgorithm')
         document.write(getResult());
-   </script>
+   </script>-->
+    <div flex="90" class="md-padding">
+      <div ng-controller="MineController as mine" ng-cloak>
+          <h1>Hello</h1>
+      </div>
+    </div>  
+    <div flex="10" class="md-padding">
+      <div ng-controller="AddFileController as addFile" id="popupContainer" layout="column" ng-cloak>
+        <div class="lock-size" layout="row" layout-align="end end">
+          <md-button aria-label="menu" class="md-fab md-primary" ng-click="showAdvanced($event)">
+            <md-icon md-svg-icon="plus" class="md-48" style="color:white;">add</md-icon>
+          </md-button>
+        </div>
+      </div>
+    </div>
+      
+      
+      
+      
+      
+      
+      
+    <script type="text/javascript" src="./bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="./bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="./bower_components/angular-route/angular-route.min.js"></script>
+    <script type="text/javascript" src="./bower_components/angular-aria/angular-aria.js"></script>
+    <script type="text/javascript" src="./bower_components/angular-animate/angular-animate.js"></script>
+    <script type="text/javascript" src="./bower_components/angular-material/angular-material.js"></script>
+    <script type="text/javascript" src="./bower_components/angular-material-icons/angular-material-icons.min.js"></script>
+    <script type="text/javascript" src="./app/assets/js/mine.js"></script>
   </body>
 </html>
