@@ -6,10 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
     <title>Leave</title>
-
+    
     <!-- CSS: start -->
     <link rel="stylesheet" href="./bower_components/font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" href="./bower_components/angular-material/angular-material.css">
+    <link rel="stylesheet" href="bower_components/angular-chart.js/dist/angular-chart.css">
     <!-- CSS: end -->
 
     <!-- style -->
@@ -17,15 +18,22 @@
     <!--<link rel="stylesheet" href="./assets/css/style.min.css" />-->
   </head>
   <body layout="column" ng-cloak>
+    
+    <script type="text/javascript">
+      var server = require('./server');
+    </script>
    <!--<script type="text/javascript"> 
         var getResult = require('./app/src/js/runAlgorithm')
         document.write(getResult());
    </script>-->
     <div flex="90" class="md-padding">
       <div ng-controller="MineController as mine" ng-cloak>
-          <h1>Hello</h1>
+        <canvas id="bar" class="chart chart-bar"
+          chart-data="data" chart-labels="labels"> chart-series="series"
+        </canvas>
       </div>
     </div>  
+    
     <div flex="10" class="md-padding">
       <div ng-controller="AddFileController as addFile" id="popupContainer" layout="column" ng-cloak>
         <div class="lock-size" layout="row" layout-align="end end">
@@ -38,17 +46,15 @@
       
       
       
-      
-      
-      
-      
-    <script type="text/javascript" src="./bower_components/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="./bower_components/angular/angular.min.js"></script>
     <script type="text/javascript" src="./bower_components/angular-route/angular-route.min.js"></script>
     <script type="text/javascript" src="./bower_components/angular-aria/angular-aria.js"></script>
     <script type="text/javascript" src="./bower_components/angular-animate/angular-animate.js"></script>
     <script type="text/javascript" src="./bower_components/angular-material/angular-material.js"></script>
     <script type="text/javascript" src="./bower_components/angular-material-icons/angular-material-icons.min.js"></script>
+    <script type="text/javascript" src="./bower_components/Chart.js/Chart.js"></script>
+    <script src="bower_components/angular-chart.js/dist/angular-chart.js"></script>
+    <!--<script type="text/javascript" src="./bower_components/highcharts/highcharts.js"></script>-->
     <script type="text/javascript" src="./app/assets/js/mine.js"></script>
   </body>
 </html>

@@ -47,19 +47,17 @@
         </md-select>
       </md-input-container>
     </form>
+    <h1>{{myWelcome}}</h1>
   </md-content>
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
-      <md-button href="http://en.wikipedia.org/wiki/Mango" target="_blank" md-autofocus>
-        More on Wikipedia
+      <md-button href="http://www.borgelt.net/doc/fpgrowth/fpgrowth.html#options" target="_blank" md-autofocus>
+        More on Options
       </md-button>
       <span flex></span>
-      <md-button ng-click="answer('not useful')">
-       Not Useful
-      </md-button>
-      <md-button ng-click="answer('useful')" style="margin-right:20px;">
-        Useful
+      <md-button ng-click="start();cancel();" class="md-raised md-primary" style="margin-right:20px;">
+        Start
       </md-button>
     </md-dialog-actions>
   </form>
