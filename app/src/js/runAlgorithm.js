@@ -3,7 +3,11 @@ module.exports = function(options) {
     const exec = require('child_process').exec;
     var directory = './app/src/algorithms/fpgrowth';
     var result;
-    const child = exec(directory + '/src/fpgrowth -s' + options.s +' -m' + options.m +' -q' + options.q +' -b, ' + directory + '/ex/test1.tab test1.out',
+    const child = exec(directory + '/src/fpgrowth -s' + options.s +
+                                                ' -m' + options.m +
+                                                ' -q' + options.q +
+                                                ' -b, ' + directory + 
+                                                '/ex/census.dat test1.csv',
     (error, stdout, stderr) => {
         console.log(`stdout: ${stdout}`);
         console.log(`stderr: ${stderr}`);

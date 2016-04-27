@@ -1,57 +1,60 @@
 (function (){
-    var app = angular.module('mine',['ngMaterial', 'ngRoute', 'chart.js']);
+    var app = angular.module('mine',['ngMaterial']);
     app.config(function($mdIconProvider) {
         $mdIconProvider
             .defaultIconSet('./app/assets/vendor/mdi.svg')
     });
     
     
-    app.controller('MineController', function($scope) {
-        $scope.labels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
-        $scope.series = ['Series A', 'Series B'];
-
-        $scope.data = [
-            [65, 59, 80, 81, 56, 55, 40],
-            [28, 48, 40, 19, 86, 27, 90]
-        ];
+    app.controller('MineController', function($scope, $rootScope, $http) {
+        
+        $rootScope.$on("myEvent", function (event, args) {
+            $scope.minimumSupport = args.minimumSupport;
+            $scope.minimumSupportPerItemSet = args.minimumSupportPerItemSet;
+            $http.get("http://localhost:8080" + '?s=' + $scope.minimumSupport + 
+                                                '&m=' + $scope.minimumSupportPerItemSet + 
+                                                '&q=-2')
+            .then(function(response) {
+                $http.get("test1.csv")
+                .then(function successCallback(response1) {
+                    var tuple = CsvtoArray(response1.data);
+                    var ctx = document.getElementById("myChart");
+                    var myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: tuple[0],
+                            datasets: [{
+                                label: 'Result of the Dataset',
+                                backgroundColor: "rgba(54,162,235,0.2)",
+                                borderColor: "rgba(54,162,235,1)",
+                                borderWidth: 1,
+                                hoverBackgroundColor: "rgba(54,162,235,0.4)",
+                                hoverBorderColor: "rgba(54,162,235,1)",
+                                data: tuple[1]
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero:true
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                }, function errorCallback(response1) {
+                    alert("Error while reading result csv.");
+                });
+            });
+            
+        });
+        
     });
-    
     
     app.controller('AddFileController', function($scope, $mdDialog, $mdMedia) {
         $scope.status = '  ';
         $scope.customFullscreen = $mdMedia('xs') || $mdMedia('sm');
-        $scope.showAlert = function(ev) {
-            // Appending dialog to document.body to cover sidenav in docs app
-            // Modal dialogs should fully cover application
-            // to prevent interaction outside of dialog
-            $mdDialog.show(
-            $mdDialog.alert()
-                .parent(angular.element(document.querySelector('#popupContainer')))
-                .clickOutsideToClose(true)
-                .title('This is an alert title')
-                .textContent('You can specify some description text in here.')
-                .ariaLabel('Alert Dialog Demo')
-                .ok('Got it!')
-                .targetEvent(ev)
-            );
-        };
-        
-        $scope.showPrompt = function(ev) {
-            // Appending dialog to document.body to cover sidenav in docs app
-            var confirm = $mdDialog.prompt()
-                .title('What would you name your dog?')
-                .textContent('Bowser is a common name.')
-                .placeholder('dog name')
-                .ariaLabel('Dog name')
-                .targetEvent(ev)
-                .ok('Okay!')
-                .cancel('I\'m a cat person');
-            $mdDialog.show(confirm).then(function(result) {
-            $scope.status = 'You decided to name your dog ' + result + '.';
-            }, function() {
-            $scope.status = 'You didn\'t name your dog.';
-            });
-        };
         
         $scope.showAdvanced = function(ev) {
             var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
@@ -62,11 +65,6 @@
                 targetEvent: ev,
                 clickOutsideToClose:true,
                 fullscreen: useFullScreen
-            })
-            .then(function(answer) {
-                $scope.status = 'You said the information was "' + answer + '".';
-            }, function() {
-                $scope.status = 'You cancelled the dialog.';
             });
             $scope.$watch(function() {
                 return $mdMedia('xs') || $mdMedia('sm');
@@ -76,7 +74,7 @@
         };
     });
     
-    app.controller('DialogController', function($scope, $http) {
+    app.controller('DialogController', function($scope, $rootScope) {
         $scope.algorithms = [
           "FP Growth Algorithm"
         ];
@@ -103,12 +101,12 @@
         };
         
         $scope.start = function(){
-            $http.get("http://localhost:8080" + '?s=' + $scope.minimumSupport + 
-                                                '&m=' + $scope.minimumSupportPerItemSet + 
-                                                '&q=-1')
-            .then(function(response) {
-                $scope.myWelcome = response.data;
+            $rootScope.$emit("myEvent", {   
+                minimumSupport           : $scope.minimumSupport,
+                minimumSupportPerItemSet : $scope.minimumSupportPerItemSet,
+                sorts                    : $scope.sorts
             });
+            
         }
         
     });
@@ -125,5 +123,43 @@
         };
     }
     
-
+    
+    function CsvtoArray(csvData) {
+        var lines = csvData.split('\n');
+        var result = [];
+        var labels = [];
+        var data = [];
+        
+        for(var line = 0; line < lines.length; line++){
+           if(lines[line] != "" ){
+                var tuple = lines[line].split(' (');
+                if(tuple[0] != undefined && tuple[1] != undefined){
+                    result.push(
+                        {
+                            "key": tuple[0], 
+                            "value": tuple[1].slice(1,-1)
+                        });
+                }
+                
+           }
+        }
+        result.sort(compareReverse);
+        var obj;
+        for(var i=0; i < result.length; i++){
+            obj = result[i];
+            labels.push(obj["key"]);
+            data.push(obj["value"]);
+        }
+        
+        return [labels, data];
+    }
+    
+    function compareReverse(a,b) {
+        if (a.value < b.value)
+            return 1;
+        else if (a.value > b.value)
+            return -1;
+        else 
+            return 0;
+    }
 })();
