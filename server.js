@@ -11,7 +11,7 @@ function handleRequest(request, response){
     var url_parts = url.parse(request.url, true);
     var query = url_parts.query;
     var getResult = runAlgorithm(query);
-    response.end('It Works!! Path Hit: ' + request.url + 'params: ' + JSON.stringify(query));
+    response.end('ok');
 }
 
 //Create a server

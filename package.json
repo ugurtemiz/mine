@@ -4,7 +4,8 @@
   "description": "Data Mining Aplication",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build": "electron-packager . mineApp --platform=darwin --arch=x64 --icon=/app/assets/img/icon.icns strict-ssl=false"
   },
   "repository": {
     "type": "git",
@@ -18,7 +19,7 @@
     "material"
   ],
   "author": "Ugur Temiz",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/ugurtemiz/mine/issues"
   },

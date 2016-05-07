@@ -6,18 +6,18 @@
     });
     
     
-    app.controller('MineController', function($scope, $rootScope, $http) {
+    app.controller('MineController', function($scope, $rootScope, $http, $interval) {
         
         $rootScope.$on("myEvent", function (event, args) {
-            $scope.minimumSupport = args.minimumSupport;
-            $scope.minimumSupportPerItemSet = args.minimumSupportPerItemSet;
-            $http.get("http://localhost:8080" + '?s=' + $scope.minimumSupport + 
-                                                '&m=' + $scope.minimumSupportPerItemSet + 
-                                                '&q=-2')
+            $http.get("http://localhost:8080" + '?s=' + args.minimumSupport + 
+                                                '&m=' + args.minimumSupportPerItemSet + 
+                                                '&q=' + args.sorts +
+                                                '&f=' + args.filePath)
             .then(function(response) {
+                console.log(response);
                 $http.get("test1.csv")
                 .then(function successCallback(response1) {
-                    var tuple = CsvtoArray(response1.data);
+                    var tuple = CsvtoArray(response1.data, args.maxData);
                     var ctx = document.getElementById("myChart");
                     var myChart = new Chart(ctx, {
                         type: 'bar',
@@ -75,11 +75,13 @@
     });
     
     app.controller('DialogController', function($scope, $rootScope) {
+        var mappedSort = 0;
         $scope.algorithms = [
           "FP Growth Algorithm"
         ];
         $scope.minimumSupport = 0.2;
         $scope.minimumSupportPerItemSet = 2;
+        $scope.maxData = 20;
         $scope.sorts = {
             0 : "Do not Sort",
             1 : "Ascending w.r.t. Item Frequency",
@@ -101,11 +103,23 @@
         };
         
         $scope.start = function(){
-            $rootScope.$emit("myEvent", {   
-                minimumSupport           : $scope.minimumSupport,
-                minimumSupportPerItemSet : $scope.minimumSupportPerItemSet,
-                sorts                    : $scope.sorts
-            });
+            mappedSort = sortMapping($scope.sort);
+            if( $scope.maxData <= 500 && $scope.maxData > 0 &&
+                $scope.minimumSupport > 0 &&
+                $scope.minimumSupportPerItemSet > 0 &&
+                $scope.filePath.path != undefined   
+            ){
+                
+                $rootScope.$emit("myEvent", {   
+                    minimumSupport           : $scope.minimumSupport,
+                    minimumSupportPerItemSet : $scope.minimumSupportPerItemSet,
+                    sorts                    : mappedSort,
+                    maxData                  : $scope.maxData,
+                    filePath                 : $scope.filePath.path
+                });
+                
+                $scope.cancel();
+            }
             
         }
         
@@ -124,7 +138,7 @@
     }
     
     
-    function CsvtoArray(csvData) {
+    function CsvtoArray(csvData, maxData) {
         var lines = csvData.split('\n');
         var result = [];
         var labels = [];
@@ -145,8 +159,9 @@
         }
         result.sort(compareReverse);
         var obj;
-        for(var i=0; i < result.length; i++){
+        for(var i=0; i < maxData; i++){
             obj = result[i];
+            
             labels.push(obj["key"]);
             data.push(obj["value"]);
         }
@@ -159,6 +174,19 @@
             return 1;
         else if (a.value > b.value)
             return -1;
+        else 
+            return 0;
+    }
+    
+    function sortMapping(key) {
+        if(key == "Ascending w.r.t. Item Frequency")
+            return 1;
+        else if (key == "Descending w.r.t. Item Frequency")
+            return -1;
+        else if (key == "Ascending w.r.t. Transaction Size Sum")
+            return 2;
+        else if (key == "Descending w.r.t. Transaction Size Sum")
+            return -2;
         else 
             return 0;
     }

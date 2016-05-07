@@ -46,8 +46,11 @@
             <md-option ng-repeat="sort in sorts" value="{{sort}}">{{sort}}</md-option>
         </md-select>
       </md-input-container>
+      <md-input-container class="md-block">
+        <label>Data to Show (Max. 500)</label>
+            <input ng-model="maxData" type="number" min="1" max="500" step="1">
+      </md-input-container>
     </form>
-    <h1>{{myWelcome}}</h1>
   </md-content>
       </div>
     </md-dialog-content>
@@ -56,7 +59,7 @@
         More on Options
       </md-button>
       <span flex></span>
-      <md-button ng-click="start();cancel();" class="md-raised md-primary" style="margin-right:20px;">
+      <md-button ng-click="start();" class="md-raised md-primary" style="margin-right:20px;">
         Start
       </md-button>
     </md-dialog-actions>
