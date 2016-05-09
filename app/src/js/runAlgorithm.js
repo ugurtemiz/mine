@@ -17,7 +17,7 @@ module.exports = function(options, callback) {
     (error, stdout, stderr) => {
         console.log(`stdout: ${stdout}`);
         console.log(`stderr: ${stderr}`);
-
+        callback();
         if (error !== null) {
             console.log(`exec error: ${error}`);
         } else {
@@ -25,5 +25,5 @@ module.exports = function(options, callback) {
         }
     });
     
-    callback();
+    
 }
