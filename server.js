@@ -4,14 +4,15 @@ var url = require('url');
 var runAlgorithm = require('./app/src/js/runAlgorithm');
 
 //Lets define a port we want to listen to
-const PORT=8080; 
+const PORT=9090; 
 
 //We need a function which handles requests and send response
 function handleRequest(request, response){
     var url_parts = url.parse(request.url, true);
     var query = url_parts.query;
-    var getResult = runAlgorithm(query);
-    response.end('ok');
+    var getResult = runAlgorithm(query, function () {
+        response.end('ok');
+    });
 }
 
 //Create a server

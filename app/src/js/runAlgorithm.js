@@ -1,4 +1,4 @@
-module.exports = function(options) {
+module.exports = function(options, callback) {
     const exec = require('child_process').exec;
     var directory = './app/src/algorithms/fpgrowth';
     var result;
@@ -7,7 +7,7 @@ module.exports = function(options) {
                                                 ' -q' + options.q +
                                                 ' -b, ' + options.f + 
                                                 ' test1.csv';
-
+    console.log(command);
     if (process.platform == 'win32') {
         command = command.replace('src/fpgrowth', 'src/fpgrowth.exe');
         command = command.split('/').join('\\');
@@ -24,4 +24,6 @@ module.exports = function(options) {
             return true;
         }
     });
+    
+    callback();
 }

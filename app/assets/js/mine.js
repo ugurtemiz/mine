@@ -9,15 +9,15 @@
     app.controller('MineController', function($scope, $rootScope, $http, $interval) {
         
         $rootScope.$on("myEvent", function (event, args) {
-            $http.get("http://localhost:8080" + '?s=' + args.minimumSupport + 
+            $http.get("http://localhost:9090" + '?s=' + args.minimumSupport + 
                                                 '&m=' + args.minimumSupportPerItemSet + 
                                                 '&q=' + args.sorts +
                                                 '&f=' + args.filePath)
             .then(function(response) {
-                console.log(response);
                 $http.get("test1.csv")
                 .then(function successCallback(response1) {
                     var tuple = CsvtoArray(response1.data, args.maxData);
+                    $scope.table = tuple[2];
                     var ctx = document.getElementById("myChart");
                     var myChart = new Chart(ctx, {
                         type: 'bar',
@@ -151,13 +151,13 @@
                     result.push(
                         {
                             "key": tuple[0], 
-                            "value": tuple[1].slice(1,-1)
+                            "value": tuple[1].substring(0, tuple[1].length - 1)
                         });
                 }
                 
            }
         }
-        result.sort(compareReverse);
+        //result.sort(compareReverse);
         var obj;
         for(var i=0; i < maxData; i++){
             obj = result[i];
@@ -166,7 +166,7 @@
             data.push(obj["value"]);
         }
         
-        return [labels, data];
+        return [labels, data, result];
     }
     
     function compareReverse(a,b) {
