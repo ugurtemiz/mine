@@ -10,7 +10,7 @@ const PORT=9090;
 function handleRequest(request, response){
     var url_parts = url.parse(request.url, true);
     var query = url_parts.query;
-    var getResult = runAlgorithm(query, function () {
+    var getResult = runAlgorithm(query, function (categories) {
         response.end('ok');
     });
 }

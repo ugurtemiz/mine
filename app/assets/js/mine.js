@@ -6,7 +6,77 @@
     });
     
     
-    app.controller('MineController', function($scope, $rootScope, $http, $interval) {
+    app.controller('MineController', function($scope, $rootScope, $http, $interval, $timeout, $q) {
+        
+        $scope.hideAttribute = true;
+        var self = this;
+        self.readonly = false;
+        self.selectedItem = null;
+        self.searchText = null;
+        self.querySearch = querySearch;
+        self.vegetables;
+        self.selectedVegetables = [];
+        self.numberChips = [];
+        self.numberChips2 = [];
+        self.numberBuffer = '';
+        self.autocompleteDemoRequireMatch = true;
+        self.transformChip = transformChip;
+        
+        /**
+         * Return the proper object when the append is called.
+         */
+        function transformChip(chip) {
+            return chip;
+        }
+        /**
+         * Search for vegetables.
+         */
+        function querySearch (query) {
+            var results = query ? self.vegetables.filter(createFilterFor(query)) : [];
+            return results;
+        }
+        /**
+         * Create filter function for a query string
+         */
+        function createFilterFor(query) {
+            var lowercaseQuery = angular.lowercase(query);
+            return function filterFn(vegetable) {
+                return (vegetable.indexOf(lowercaseQuery) === 0);
+            };
+        }
+        function loadVegetables() {
+            var veggies = $scope.categories;
+            return veggies.map(function (veg) {
+                veg = veg.toLowerCase();
+                return veg;
+            });
+        }
+        
+        
+        /**
+         * Filter Results.
+         */
+        $scope.filterResults = function(){
+            $scope.table = [];
+            if(self.selectedVegetables != []){
+                console.log(self.selectedVegetables);
+                var totalArray = $scope.tuple[2];
+                var length = totalArray.length;
+                var flag = 0;
+                for(var i=0; i < length; i++){
+                    flag = 0;
+                    for(var j=0; j < self.selectedVegetables.length; j++){
+                        if(totalArray[i].key.indexOf(self.selectedVegetables[j]) > -1){
+                            flag++;
+                        }
+                    }
+                    if(flag == self.selectedVegetables.length){
+                        $scope.table.push(totalArray[i]);
+                    }
+                }
+            }
+        }
+        
         
         $rootScope.$on("myEvent", function (event, args) {
             $http.get("http://localhost:9090" + '?s=' + args.minimumSupport + 
@@ -16,13 +86,16 @@
             .then(function(response) {
                 $http.get("test1.csv")
                 .then(function successCallback(response1) {
-                    var tuple = CsvtoArray(response1.data, args.maxData);
-                    $scope.table = tuple[2];
+                    $scope.tuple = CsvtoArray(response1.data, args.maxData);
+                    //$scope.table = $scope.tuple[2];
+                    $scope.categories = $scope.tuple[3];
+                    self.vegetables = loadVegetables();
+                    $scope.hideAttribute = false;
                     var ctx = document.getElementById("myChart");
                     var myChart = new Chart(ctx, {
                         type: 'bar',
                         data: {
-                            labels: tuple[0],
+                            labels: $scope.tuple[0],
                             datasets: [{
                                 label: 'Result of the Dataset',
                                 backgroundColor: "rgba(54,162,235,0.2)",
@@ -30,7 +103,7 @@
                                 borderWidth: 1,
                                 hoverBackgroundColor: "rgba(54,162,235,0.4)",
                                 hoverBorderColor: "rgba(54,162,235,1)",
-                                data: tuple[1]
+                                data: $scope.tuple[1]
                             }]
                         },
                         options: {
@@ -143,21 +216,27 @@
         var result = [];
         var labels = [];
         var data = [];
-        
+        var temp = [];
+        var categories = new Set();
         for(var line = 0; line < lines.length; line++){
            if(lines[line] != "" ){
                 var tuple = lines[line].split(' (');
                 if(tuple[0] != undefined && tuple[1] != undefined){
                     result.push(
                         {
-                            "key": tuple[0], 
+                            "key": tuple[0].toLowerCase(), 
                             "value": tuple[1].substring(0, tuple[1].length - 1)
                         });
+                    temp = tuple[0].split(' ');
+                    for(var i = 0; i < temp.length; i++){
+                        categories.add(temp[i].toLowerCase());
+                    }
                 }
-                
            }
         }
-        //result.sort(compareReverse);
+        //console.log(categories);
+        var catArray = Array.from(categories);
+        result.sort(compareReverse);
         var obj;
         for(var i=0; i < maxData; i++){
             obj = result[i];
@@ -166,7 +245,7 @@
             data.push(obj["value"]);
         }
         
-        return [labels, data, result];
+        return [labels, data, result, catArray];
     }
     
     function compareReverse(a,b) {
