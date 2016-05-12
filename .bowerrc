@@ -1,0 +1,10 @@
+{
+  "analytics": true,
+  "color": true,
+  "directory": "bower_components",
+  "storage": {
+    "packages": ".bower-cache",
+    "registry": ".bower-registry"
+  },
+  "tmp": ".bower-tmp"
+}

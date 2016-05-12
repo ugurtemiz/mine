@@ -1,23 +1,31 @@
 {
   "name": "mine",
-  "description": "Data Mining Aplication",
-  "main": "main.js",
+  "version": "0.1.0",
+  "description": "Data Mining Application.",
+  "homepage": "https://github.com/ugurtemiz/mine",
+  "private": true,
   "authors": [
-    "Ugur Temiz"
+    {
+      "name": "Uğur Temiz",
+      "email": "seugurtemiz@gmail.com",
+      "url": "http://www.ugurtemiz.com/"
+    },
+    {
+      "name": "Gökay Gürcan",
+      "email": "info@gokaygurcan.com",
+      "url": "https://www.gokaygurcan.com/"
+    }
   ],
-  "license": "ISC",
+  "copyright": "2016",
+  "license": "GPL-3.0",
   "keywords": [
     "data",
     "mining",
+    "fpgrowth",
     "electron",
     "angular",
     "material"
   ],
-  "homepage": "https://github.com/ugurtemiz/mine",
-  "moduleType": [
-    "globals"
-  ],
-  "private": true,
   "ignore": [
     "**/.*",
     "node_modules",
@@ -26,19 +34,18 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "~1.5.3",
-    "jquery": "~2.2.2",
-    "font-awesome": "~4.5.0",
-    "angular-route": "~1.5.3",
-    "angular-material": "~1.0.7",
-    "angular-aria": "~1.5.3",
-    "angular-animate": "~1.5.3",
-    "angular-messages": "~1.5.3",
-    "angular-material-icons": "~0.7.0",
-    "Chart.js": "^2.0.2"
+    "angular": "^1.5.5",
+    "angular-animate": "^1.5.3",
+    "angular-aria": "^1.5.3",
+    "angular-material": "^1.0.7",
+    "angular-material-icons": "^0.7.0",
+    "angular-messages": "^1.5.3",
+    "angular-route": "^1.5.3",
+    "Chart.js": "^2.0.2",
+    "font-awesome": "^4.6.2",
+    "jquery": "^2.2.3"
   },
   "resolutions": {
-    "angular": "1.5.3",
-    "jquery": "2.2.2"
+    "angular": "1.5.5"
   }
 }

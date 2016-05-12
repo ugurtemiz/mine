@@ -1,32 +1,48 @@
 {
   "name": "mine",
-  "version": "1.0.0",
-  "description": "Data Mining Aplication",
-  "main": "main.js",
+  "version": "0.1.0",
+  "description": "Data Mining Application",
+  "title": "mine",
+  "homepage": "https://github.com/ugurtemiz/mine",
+  "private": true,
+  "authors": [
+    {
+      "name": "Uğur Temiz",
+      "email": "seugurtemiz@gmail.com",
+      "url": "http://www.ugurtemiz.com/"
+    }
+  ],
+  "contributors": [
+    {
+      "name": "Gökay Gürcan",
+      "email": "info@gokaygurcan.com",
+      "url": "https://www.gokaygurcan.com/"
+    }
+  ],
+  "copyright": "2016",
+  "license": "GPL-3.0",
   "scripts": {
-    "start": "electron .",
-    "build": "electron-packager . mineApp --platform=darwin --arch=x64 --icon=/app/assets/img/icon.icns strict-ssl=false"
+    "postinstall": "./node_modules/.bin/bower install",
+    "start": "./node_modules/.bin/electron ./main.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ugurtemiz/mine.git"
   },
+  "bugs": {
+    "url": "https://github.com/ugurtemiz/mine/issues"
+  },
   "keywords": [
     "data",
     "mining",
+    "fpgrowth",
     "electron",
     "angular",
     "material"
   ],
-  "author": "Ugur Temiz",
-  "license": "GPL-3.0",
-  "bugs": {
-    "url": "https://github.com/ugurtemiz/mine/issues"
-  },
-  "homepage": "https://github.com/ugurtemiz/mine#readme",
+  "dependencies": {},
   "devDependencies": {
-    "electron-prebuilt": "^0.37.3",
-    "gulp": "^3.9.1",
-    "gulp-util": "^3.0.7"
+    "bower": "^1.7.9",
+    "electron-prebuilt": "^1.0.1"
   }
 }
