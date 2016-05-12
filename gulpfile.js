@@ -1,10 +1,21 @@
-/* File: gulpfile.js */
+/*!
+ * Mine
+ *
+ * Released under the GPL-3.0 License.
+ *
+ * Copyright (c) 2016
+ */
 
-// grab our gulp packages
-var gulp  = require('gulp'),
-    gutil = require('gulp-util');
+'use strict';
 
-// create a default task and just log a message
+// node_modules
+var chalk = require('chalk');
+var gulp = require('gulp');
+
+// local modules
+var pkg = require('./package.json');
+
+// tasks
 gulp.task('default', function() {
-  return gutil.log('Gulp is running!')
+    console.log(chalk.red(pkg.title + ' | ' + pkg.description));
 });

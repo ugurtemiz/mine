@@ -2,7 +2,7 @@
   "name": "mine",
   "version": "0.1.0",
   "description": "Data Mining Application",
-  "title": "mine",
+  "title": "Mine",
   "homepage": "https://github.com/ugurtemiz/mine",
   "private": true,
   "authors": [
@@ -43,6 +43,8 @@
   "dependencies": {},
   "devDependencies": {
     "bower": "^1.7.9",
-    "electron-prebuilt": "^1.0.1"
+    "chalk": "^1.1.3",
+    "electron-prebuilt": "^1.0.1",
+    "gulp": "^3.9.1"
   }
 }
