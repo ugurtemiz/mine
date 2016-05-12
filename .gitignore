@@ -72,6 +72,9 @@ nb-configuration.xml
 Session.vim
 .netrwhist
 
+## Visual Studio Code --
+.vscode
+
 # Others
 ## node ----------------
 logs
