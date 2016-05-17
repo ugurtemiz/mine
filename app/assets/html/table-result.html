@@ -1,0 +1,9 @@
+<md-list flex ng-hide="hideAttribute">
+  <md-divider></md-divider>
+  <md-subheader class="md-no-sticky">Resultset in Table</md-subheader>
+  <md-list-item ng-repeat="t in table | limitTo:100" ng-click="goToPerson(person.name, $event)">
+  <p class="counter" style="flex:10">{{$index + 1}}</p>
+  <p style="flex:70">{{ t.key }}</p>
+  <p style="flex:20">{{ t.value }}</p>
+  </md-list-item>
+</md-list>

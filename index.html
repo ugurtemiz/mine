@@ -8,11 +8,9 @@
     <!-- CSS: start -->
     <link rel="stylesheet" href="./bower_components/font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" href="./bower_components/angular-material/angular-material.css">
-    <!-- CSS: end -->
-    <script type="text/javascript" src="bower_components/Chart.js/dist/Chart.js"></script>
-    <!-- style -->
     <link rel="stylesheet" href="./app/assets/css/style.css" />
-    <!--<link rel="stylesheet" href="./assets/css/style.min.css" />-->
+    <!-- CSS: end -->
+    
   </head>
   <body layout="column" ng-controller="MineController as mine" ng-cloak>
     <script type="text/javascript">
@@ -21,47 +19,10 @@
     <div flex="nogrow" class="md-padding" ng-hide="hideAttribute">
       <canvas id="myChart" ></canvas>
     </div>
-    <md-content flex="noshrink" class="md-padding" ng-hide="hideAttribute">
-      <br/>
-      <h2 class="md-title">Use auto complete feature to build add filter elements.</h2>
-      <md-chips ng-model="mine.selectedVegetables" md-autocomplete-snap
-        md-transform-chip="mine.transformChip($chip)"
-        md-require-match="mine.autocompleteDemoRequireMatch">
-        <md-autocomplete
-          md-selected-item="mine.selectedItem"
-          md-search-text="mine.searchText"
-          md-items="item in mine.querySearch(mine.searchText)"
-          md-item-text="item.name"
-          placeholder="Search for filter">
-          <span md-highlight-text="mine.searchText">{{item}}</span>
-        </md-autocomplete>
-        <md-chip-template>
-          <span>
-          <strong>{{$chip}}</strong>
-          </span>
-        </md-chip-template>
-      </md-chips>
-      <md-button class="md-raised md-warn" ng-click="filterResults()">Filter</md-button>
-      <br />
-      <h2 class="md-title">Support Options</h2>
-      <md-list>
-        <md-list-item class="md-2-line veggie-option" ng-repeat="veg in mine.vegetables" layout="row"
-          layout-wrap>
-          <div class="md-item-text md-whiteframe-z1" flex>
-            <h4>{{veg}}</h4>
-          </div>
-        </md-list-item>
-      </md-list>
-    </md-content>
-    <md-list flex ng-hide="hideAttribute">
-      <md-divider></md-divider>
-      <md-subheader class="md-no-sticky">Resultset in Table</md-subheader>
-      <md-list-item ng-repeat="t in table | limitTo:100" ng-click="goToPerson(person.name, $event)">
-        <p class="counter" style="flex:10">{{$index + 1}}</p>
-        <p style="flex:70">{{ t.key }}</p>
-        <p style="flex:20">{{ t.value }}</p>
-      </md-list-item>
-    </md-list>
+    
+    <filter-elements></filter-elements>
+    <table-result></table-result>
+    
     <div flex class="md-padding">
       <div ng-controller="AddFileController as addFile" id="popupContainer" layout="column" ng-cloak>
         <div class="lock-size" layout="row" layout-align="end end">
@@ -71,12 +32,14 @@
         </div>
       </div>
     </div>
+    
     <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
     <script type="text/javascript" src="bower_components/angular-route/angular-route.min.js"></script>
     <script type="text/javascript" src="bower_components/angular-aria/angular-aria.js"></script>
     <script type="text/javascript" src="bower_components/angular-animate/angular-animate.js"></script>
     <script type="text/javascript" src="bower_components/angular-material/angular-material.js"></script>
     <script type="text/javascript" src="bower_components/angular-material-icons/angular-material-icons.min.js"></script>
+    <script type="text/javascript" src="bower_components/Chart.js/dist/Chart.js"></script>
     <script type="text/javascript" src="app/assets/js/mine.js"></script>
   </body>
 </html>

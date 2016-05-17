@@ -87,7 +87,6 @@
                 $http.get("test1.csv")
                 .then(function successCallback(response1) {
                     $scope.tuple = CsvtoArray(response1.data, args.maxData);
-                    //$scope.table = $scope.tuple[2];
                     $scope.categories = $scope.tuple[3];
                     self.vegetables = loadVegetables();
                     $scope.hideAttribute = false;
@@ -196,6 +195,20 @@
             
         }
         
+    });
+    
+    app.directive('filterElements', function(){
+        return{
+            restrict : 'E',
+            templateUrl: 'app/assets/html/filter-elements.html'
+        };
+    });
+    
+     app.directive('tableResult', function(){
+        return{
+            restrict : 'E',
+            templateUrl: 'app/assets/html/table-result.html'
+        };
     });
     
     function ActionController($scope, $mdDialog) {

@@ -1,0 +1,32 @@
+<md-content flex="noshrink" class="md-padding" ng-hide="hideAttribute">
+  <br/>
+  <h2 class="md-title">Use auto complete feature to build add filter elements.</h2>
+  <md-chips ng-model="mine.selectedVegetables" md-autocomplete-snap
+    md-transform-chip="mine.transformChip($chip)"
+    md-require-match="mine.autocompleteDemoRequireMatch">
+    <md-autocomplete
+      md-selected-item="mine.selectedItem"
+      md-search-text="mine.searchText"
+      md-items="item in mine.querySearch(mine.searchText)"
+      md-item-text="item.name"
+      placeholder="Search for filter">
+      <span md-highlight-text="mine.searchText">{{item}}</span>
+    </md-autocomplete>
+    <md-chip-template>
+      <span>
+      <strong>{{$chip}}</strong>
+      </span>
+    </md-chip-template>
+  </md-chips>
+  <md-button class="md-raised md-warn" ng-click="filterResults()">Filter</md-button>
+  <br />
+  <h2 class="md-title">Support Options</h2>
+  <md-list>
+    <md-list-item class="md-2-line veggie-option" ng-repeat="veg in mine.vegetables" layout="row"
+      layout-wrap>
+      <div class="md-item-text md-whiteframe-z1" flex>
+        <h4>{{veg}}</h4>
+      </div>
+    </md-list-item>
+  </md-list>
+</md-content>
