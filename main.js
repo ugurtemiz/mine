@@ -22,8 +22,12 @@ app.on('window-all-closed', function() {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 app.on('ready', function() {
+  var conf = {width: 1800, height: 720};
+  if(process.platform == 'darwin'){
+    conf.titleBarStyle = 'hidden';
+  }
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 1800, height: 720});
+  mainWindow = new BrowserWindow(conf);
 
   // and load the index.html of the app.
   mainWindow.loadURL('file://' + __dirname + '/index.html');
